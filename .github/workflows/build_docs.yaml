@@ -46,4 +46,4 @@ jobs:
         git config --global user.email "roym899bot@gmail.com"
         msg="Update docs for commit ${GITHUB_SHA}"
         git commit --allow-empty -am "${msg}"
-        git push https://${GITHUB_TOKEN}@github.com/roym899/test_py.git
+        git push https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
