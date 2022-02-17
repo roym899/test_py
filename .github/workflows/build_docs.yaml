@@ -1,0 +1,50 @@
+# Adapted from https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1/
+on:
+  push:
+    branches: [ main ]
+ 
+jobs:
+  build_docs_job:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run:
+        pip install Sphinx sphinx-rtd-theme
+    - name: Build docs
+      run: |
+        cd docs
+        make html
+      # shell: bash
+    - name: Pull current docs
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd docs/_build/
+        git clone -b docs https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+    - name: Remove current docs
+      run: |
+        cd docs/_build/test_py
+        rm -rf docs
+    - name: Add updated docs
+      run: |
+        cd docs/_build
+        mv ./html test_py/docs
+        touch test_py/docs/.nojekyll  # needed to serve folders starting with _
+        ls -lha
+    - name: Push updated docs
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd docs/_build/test_py
+        git config --global user.name "roym899bot"
+        git config --global user.email "roym899bot@gmail.com"
+        export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
+        msg="Update docs for commit ${GITHUB_SHA} made on `date -d"@${SOURCE_DATE_EPOCH}" --iso-8601=seconds`"
+        git commit -am "${msg}"
+        git push https://${GITHUB_TOKEN}@github.com/roym899/test_py.git
