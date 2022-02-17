@@ -6,7 +6,7 @@
 Tutorials
 ===================================
 
-Some description.
+Some description on tutorials.
 
 .. toctree::
    :maxdepth: 2
