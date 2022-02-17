@@ -22,7 +22,7 @@ jobs:
         make html
       # shell: bash
     - name: Pull current docs
-      with:
+      env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd docs/_build/
@@ -38,7 +38,7 @@ jobs:
         touch test_py/docs/.nojekyll  # needed to serve folders starting with _
         ls -lha
     - name: Push updated docs
-      with:
+      env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd docs/_build/test_py
