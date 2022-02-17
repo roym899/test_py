@@ -8,7 +8,7 @@
 Welcome to test_py's documentation!
 ===================================
 
-Some description.
+Some updated description.
 
 .. toctree::
    :caption: Test

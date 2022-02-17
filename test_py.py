@@ -2,5 +2,6 @@
 
 
 def my_function() -> None:
-    """Print Hello World."""
+    """Print Hello World twice."""
+    print("Hello World")
     print("Hello World")
