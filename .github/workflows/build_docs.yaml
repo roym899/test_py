@@ -45,5 +45,6 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         msg="Update docs for commit ${GITHUB_SHA}"
-        git commit --allow-empty -am "${msg}"
+        git add -A
+        git commit --allow-empty -m "${msg}"
         git push https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
