@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="test_py",
-    version="1.0.0",
+    name="roym899.test_py",
+    version="1.0.1",
     author="Leonard Bruns",
     author_email="roym899@gmail.com",
     description="Minimalistic Python package",
